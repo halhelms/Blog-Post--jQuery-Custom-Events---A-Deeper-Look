@@ -1,0 +1,85 @@
+<html>
+	<head>
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
+	</head>
+	
+	<body>
+		<div id="products">
+			<h4>Products</h4>
+			<p>Here's a list of books we thought you might find interesting:</p>
+			<div>
+				<h3>Adobe ColdFusion Anthology</h3>
+				<img src="images/cf_anthology.jpg" alt="Adobe ColdFusion Anthology" width="75" height="75" /> 
+				<label>Qty: </label>
+				<input type="text" size="2" id="1430272155" />
+				<img src="images/add_cart.jpeg" alt="add_cart" width="47" height="42" data-name="Adobe ColdFusion Anthology" data-isbn="1430272155" class="add_product" />
+			</div>
+
+			<div>
+				<h3>High Performance JavaScript</h3>
+				<img src="images/javascript.jpg" alt="High Performance JavaScript" width="75" height="75" /> 
+				<label>Qty: </label>
+				<input type="text" size="2" id="059680279X" />
+				<img src="images/add_cart.jpeg" alt="add_cart" width="47" height="42" data-name="High Performance JavaScript" data-isbn="059680279X" class="add_product" />
+			</div>
+
+			<div>
+				<h3>Event Processing in Action</h3>
+				<img src="images/edp.jpg" alt="Event Processing in Action" width="75" height="75" /> 
+				<label>Qty: </label>
+				<input type="text" size="2" class="add_product" id="1935182218" />
+				<img src="images/add_cart.jpeg" alt="add_cart" width="47" height="42" data-name="Event Processing in Action" data-isbn="1935182218" class="add_product" />
+			</div>
+
+		</div>
+		
+		<div id="cart">
+			<h4>Your Cart</h4>
+			<ul id="cart_items"></ul>
+		</div>
+		
+		<script type="text/javascript">
+			// when an item is added to the cart...
+			$( '.add_product' ).click( function(){
+				
+				var isbn = $( this ).data( 'isbn' );
+				var title = $( this ).data( 'name' );
+				var quantity = $( '#' + isbn ).val() ? $( '#' + isbn ).val() : 1;
+				
+				var eventObject = { 
+					isbn : isbn, 
+					quantity : quantity,
+					title : title
+				};
+			// ... announce it
+				$( '#products' ).trigger( 
+					'item_added_to_cart', 
+					eventObject 
+				);
+			});
+		</script>
+		
+		<!-- Listeners -->
+		<script type="text/javascript" src="CartListener.js"></script>
+		
+	</body>
+	
+</html>		
+
+<style>
+
+	#cart{
+		display: inline;
+		float: left
+		margin-left: 120px;
+		padding-left: 120px;
+
+	}
+			
+	#products{
+		float: left;
+		margin-right: 30px;
+		padding-right: 30px;
+		margin-top: -15px;
+	}
+</style>
